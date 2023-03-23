@@ -98,9 +98,6 @@ class FeedViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-
-
-
     private fun getLatestMovies(){
         uiScope.launch {
             val response = ApiClient.callClient.fetchLatestMovies(1)
