@@ -1,9 +1,6 @@
 package com.app.videoapplication.api
 
-import com.app.videoapplication.model.MovieListResponse
-import com.app.videoapplication.model.MovieViewResponse
-import com.app.videoapplication.model.TokenResponse
-import com.app.videoapplication.model.TrendingResponse
+import com.app.videoapplication.model.*
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -32,5 +29,8 @@ interface APIInterface {
 
     @GET("movie/{movie_id}/lists")
     suspend fun getMovie(@Path("movie_id") id : Int) : Response<MovieViewResponse>
+
+    @GET("tv/popular")
+    suspend fun getTvPopular() : Response<TvShowResponse>
 
 }

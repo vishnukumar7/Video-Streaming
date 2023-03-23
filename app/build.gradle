@@ -34,7 +34,13 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+   /* productFlavors{
+        resValue "string", "app_name", "VideoStreaming"
+    }*/
     applicationVariants.all { variant ->
+        variant.outputs.all{output->
+            output.outputFileName="VideoStreaming.apk"
+        }
         variant.buildConfigField 'String', 'BASE_URL_MOVIE', '"https://api.themoviedb.org/3/movie/550?api_key=f9071109db33abdd98d52e8a1cc73b3e/"'
         variant.buildConfigField 'String', 'BASE_URL', '"https://api.themoviedb.org/3/"'
         variant.buildConfigField 'String', 'API_KEY', '"f9071109db33abdd98d52e8a1cc73b3e"'
@@ -89,4 +95,6 @@ dependencies {
 
     implementation 'com.github.bumptech.glide:glide:4.15.0'
     kapt 'com.github.bumptech.glide:compiler:4.15.0'
+
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
 }

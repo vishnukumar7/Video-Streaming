@@ -7,6 +7,12 @@ object AppUtils {
         return "${BuildConfig.IMAGE_URL}${imageSize.value}$this"
     }
 
+    fun String?.optString() : String{
+        if(this==null)
+            return ""
+        return this
+    }
+
 }
 
 enum class ImageSize(val value: String){

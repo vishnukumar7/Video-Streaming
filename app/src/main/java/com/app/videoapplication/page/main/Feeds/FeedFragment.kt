@@ -4,13 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
+import com.app.videoapplication.AppUtils.getImageUrl
+import com.app.videoapplication.AppUtils.optString
+import com.app.videoapplication.ImageSize
 import com.app.videoapplication.R
+import com.app.videoapplication.carouel.ImageListener
 import com.app.videoapplication.model.FeedItem
 import com.app.videoapplication.model.ResultsItem
 import com.app.videoapplication.page.MainPageActivity
 import com.app.videoapplication.page.main.BaseFragment
-import com.google.gson.Gson
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_feed.*
 
 open class FeedFragment : BaseFragment() {
@@ -31,6 +36,7 @@ open class FeedFragment : BaseFragment() {
         feedViewModel= ViewModelProvider(this)[FeedViewModel::class.java]
         (activity as MainPageActivity).onFeedFragmentViewCreated()
         feedRecyclerView.adapter=feedAdapter
+
     }
 
     override fun onViewStarted() {
@@ -39,10 +45,8 @@ open class FeedFragment : BaseFragment() {
             feedList.clear()
             feedList.addAll(it)
             feedAdapter.notifyDataSetChanged()
-            println("//feeds : ${Gson().toJson(it)}")
         }
     }
-
 
 
 }

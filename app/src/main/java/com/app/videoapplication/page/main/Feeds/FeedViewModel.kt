@@ -19,36 +19,54 @@ class FeedViewModel(application: Application) : AndroidViewModel(application) {
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private val _resultsItem = MutableLiveData<List<FeedItem>>()
     val resultsItem : LiveData<List<FeedItem>> =_resultsItem
+
+    /*private val _carouselItem = MutableLiveData<FeedItem>()
+    val carouselItem : LiveData<FeedItem> =_carouselItem*/
     private val feedList= ArrayList<FeedItem>()
     private var tempDataList = ArrayList<GenresItem>()
     private val selectedList= arrayListOf("Action","Adventure","Fantasy")
 
     fun getFeeds(){
         uiScope.launch {
-            val response = ApiClient.callClient.fetchPopularMovies(1)
-            if(response.isSuccessful){
-                feedList.clear()
-                response.body()?.results?.let {
-                    if(it.isNotEmpty())
-                    feedList.add(FeedItem(title = "Popular on Netflix", itemList = it))
-                }
-                _resultsItem.postValue(feedList)
-                getTrending()
-            }
-        }
-    }
-
-    private fun getTrending(){
-        uiScope.launch {
             val response = ApiClient.callClient.getTrending("all","day")
             if(response.isSuccessful){
                 response.body()?.results?.let {
-                    if(it.isNotEmpty())
-                        feedList.add(FeedItem(title = "Trending Now", itemList = it))
+                    feedList.clear()
+                    if(it.isNotEmpty()){
+                        feedList.add(FeedItem(title = "Trending day", itemList = it))
+                    }
                 }
                 _resultsItem.postValue(feedList)
             }
+            getPopularMovies()
+        }
+    }
+
+    private fun getTrendingWeek(){
+        uiScope.launch {
+            val response = ApiClient.callClient.getTrending("all","week")
+            if(response.isSuccessful){
+                response.body()?.results?.let {
+                    if(it.isNotEmpty())
+                        feedList.add(FeedItem(title = "Trending Week", itemList = it))
+                }
+
+            }
             getTopRated()
+        }
+    }
+
+    private fun getPopularMovies(){
+        uiScope.launch {
+            val response = ApiClient.callClient.fetchPopularMovies(1)
+            if(response.isSuccessful){
+                response.body()?.results?.let {
+                    if(it.isNotEmpty())
+                        feedList.add(FeedItem(title = "Popular on Netflix", itemList = it))
+                }
+                _resultsItem.postValue(feedList)
+                getTrendingWeek()
+            }
         }
     }
 
@@ -62,41 +80,10 @@ class FeedViewModel(application: Application) : AndroidViewModel(application) {
                 }
                 _resultsItem.postValue(feedList)
             }
-            getMovies()
-
+            getLatestMovies()
         }
     }
 
-    private fun getMovies(){
-        uiScope.launch {
-            val response = ApiClient.callClient.getMovieList()
-            if(response.isSuccessful){
-                response.body()?.genres?.let {
-                    tempDataList.addAll(it)
-                    println("//genres : $it")
-                    getMovieForSelected()
-                }
-            }
-
-        }
-    }
-
-    private fun getMovieForSelected(){
-        uiScope.launch {
-            println("// data : ${tempDataList.filter { selectedList.contains(it.name) }.size}")
-            tempDataList.filter { selectedList.contains(it.name) }.forEach { genres->
-                val response = ApiClient.callClient.getMovie(genres.id)
-                if(response.isSuccessful){
-                    println("//response genres : ${response.body()?.results}")
-                    /* response.body()?.results?.let {
-                         if(it.isNotEmpty())
-                             feedList.add(FeedItem(title = genres.name, itemList = it))
-                     }
-                     _resultsItem.postValue(feedList)*/
-                }
-            }
-        }
-    }
 
     private fun getLatestMovies(){
         uiScope.launch {
@@ -105,6 +92,20 @@ class FeedViewModel(application: Application) : AndroidViewModel(application) {
                 response.body()?.results?.let {
                     if(it.isNotEmpty())
                     feedList.add(FeedItem(title = "Latest on Netflix", itemList = it))
+                }
+                _resultsItem.postValue(feedList)
+            }
+        }
+        getTvPopular()
+    }
+
+    private fun getTvPopular(){
+        uiScope.launch {
+            val response = ApiClient.callClient.getTvPopular()
+            if(response.isSuccessful){
+                response.body()?.results?.let {
+                    if(it.isNotEmpty())
+                        feedList.add(FeedItem(title = "Popular on TV", itemList = it))
                 }
                 _resultsItem.postValue(feedList)
             }

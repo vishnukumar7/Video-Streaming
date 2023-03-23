@@ -5,77 +5,77 @@ import com.squareup.moshi.Json
 data class TrendingResponse(
 
 	@Json(name = "page")
-	val page: Int = 0,
+	val page: Int? = 0,
 
 	@Json(name = "total_pages")
-	val totalPages: Int = 0,
+	val totalPages: Int? = 0,
 
 	@Json(name = "results")
 	val results: List<ResultsItem> = ArrayList(),
 
 	@Json(name = "total_results")
-	val totalResults: Int = 0
+	val totalResults: Int? = 0
 )
 
 data class ResultsItem(
 
 	@Json(name = "overview")
-	val overview: String = "",
+	val overview: String? = "",
 
 	@Json(name = "original_language")
-	val originalLanguage: String = "",
+	val originalLanguage: String? = "",
 
 	@Json(name = "original_title")
-	val originalTitle: String = "",
+	val originalTitle: String? = "",
 
 	@Json(name = "video")
-	val video: Boolean =  false,
+	val video: Boolean? =  false,
 
 	@Json(name = "title")
-	val title: String = "",
+	val title: String? = "",
 
 	@Json(name = "genre_ids")
 	val genreIds: List<Int> = ArrayList(),
 
 	@Json(name = "poster_path")
-	val posterPath: String = "",
+	val posterPath: String? = "",
 
 	@Json(name = "backdrop_path")
-	val backdropPath: String = "",
+	val backdropPath: String? = "",
 
 	@Json(name = "release_date")
-	val releaseDate: String = "",
+	val releaseDate: String? = "",
 
 	@Json(name = "vote_average")
-	val voteAverage: Double = 0.0,
+	val voteAverage: Double? = 0.0,
 
 	@Json(name = "popularity")
-	val popularity: Double = 0.0,
+	val popularity: Double? = 0.0,
 
 	@Json(name = "id")
-	val id: Int = -1,
+	val id: Int? = -1,
 
 	@Json(name = "adult")
-	val adult: Boolean = false,
+	val adult: Boolean? = false,
 
 	@Json(name = "vote_count")
-	val voteCount: Int = 0,
+	val voteCount: Int? = 0,
 
 	@Json(name = "first_air_date")
-	val firstAirDate: String = "",
+	val firstAirDate: String? = "",
 
 	@Json(name = "origin_country")
 	val originCountry: List<String> = ArrayList(),
 
 	@Json(name = "original_name")
-	val originalName: String = "",
+	val originalName: String? = "",
 
 	@Json(name = "name")
-	val name: String = ""
+	val name: String? = ""
 )
 
 
 data class FeedItem(
 	var title: String,
-	var itemList : List<ResultsItem>
+	var itemList : List<Any>
 )
