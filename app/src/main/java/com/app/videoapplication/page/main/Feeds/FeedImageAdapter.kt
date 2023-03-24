@@ -1,20 +1,17 @@
 package com.app.videoapplication.page.main.Feeds
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.app.videoapplication.AppUtils.getImageUrl
 import com.app.videoapplication.AppUtils.optString
-import com.app.videoapplication.BuildConfig
-import com.app.videoapplication.ImageSize
 import com.app.videoapplication.R
-import com.app.videoapplication.carouel.ImageListener
 import com.app.videoapplication.model.ResultsItem
 import com.app.videoapplication.model.TvShowResultsItem
+import com.app.videoapplication.page.main.detail.DetailActivity
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.home_header_view.view.*
 import kotlinx.android.synthetic.main.list_feed.view.*
 
 class FeedImageAdapter : RecyclerView.Adapter<FeedImageViewHolder>() {
@@ -60,6 +57,10 @@ class FeedImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
     fun bind(itemView: View,resultsItem: ResultsItem){
         Glide.with(itemView.context).load(resultsItem.posterPath.optString().getImageUrl()).into(itemView.feedImageView)
+        itemView.feedImageView.setOnClickListener {
+            val details=Intent(itemView.context, DetailActivity::class.java)
+            itemView.context.startActivity(details)
+        }
     }
 }
 
