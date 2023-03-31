@@ -6,14 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.app.videoapplication.R
 import com.app.videoapplication.page.main.BaseFragment
+import com.faltenreich.skeletonlayout.Skeleton
 
-open class DownloadFragment : BaseFragment(){
+open class DownloadFragment : BaseFragment(R.layout.fragment_download){
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_download, container, false)
-    }
+    override lateinit var skeleton: Skeleton
+
 }

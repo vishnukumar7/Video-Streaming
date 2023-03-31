@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <declare-styleable name="SkeletonLayout">
+        <attr name="maskColor" format="color"/>
+        <attr name="maskCornerRadius" format="dimension"/>
+        <attr name="showShimmer" format="boolean"/>
+        <attr name="shimmerColor" format="color"/>
+        <attr name="shimmerDurationInMillis" format="integer"/>
+        <attr name="shimmerDirection" format="enum">
+            <enum name="left_to_right" value="0"/>
+            <enum name="right_to_left" value="1"/>
+        </attr>
+        <attr name="shimmerAngle" format="integer" />
+    </declare-styleable>
+    
+</resources>

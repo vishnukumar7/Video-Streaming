@@ -1,31 +1,21 @@
 package com.app.videoapplication.page.main.comingSoon
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.app.videoapplication.NextPageListener
 import com.app.videoapplication.R
 import com.app.videoapplication.model.ResultsItem
 import com.app.videoapplication.page.main.BaseFragment
+import com.faltenreich.skeletonlayout.Skeleton
 import kotlinx.android.synthetic.main.fragment_coming_soon.*
-import kotlinx.android.synthetic.main.fragment_feed.*
 
-class ComingSoonFragment : BaseFragment(), NextPageListener {
+class ComingSoonFragment : BaseFragment(R.layout.fragment_coming_soon), NextPageListener {
+
+    override lateinit var skeleton: Skeleton
 
     lateinit var comingSoonViewModel: ComingSoonViewModel
     var listItem = ArrayList<ResultsItem>()
     var adapter = ComingSoonAdapter(listItem,this)
     var lastPosition=0
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        return inflater.inflate(R.layout.fragment_coming_soon, container, false)
-    }
-
     override fun onViewStarted() {
         super.onViewStarted()
         comingSoonViewModel = ViewModelProvider(this)[ComingSoonViewModel::class.java]

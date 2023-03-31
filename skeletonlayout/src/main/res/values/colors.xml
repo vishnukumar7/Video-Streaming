@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <color name="skeleton_mask">#FF000000</color>
+    <color name="skeleton_shimmer">#AB131313</color>
+    
+</resources>

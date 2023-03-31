@@ -20,26 +20,27 @@ import com.app.videoapplication.page.MainPageActivity
 import com.app.videoapplication.page.main.BaseFragment
 import com.app.videoapplication.page.main.listPage.ListActivity
 import com.bumptech.glide.Glide
+import com.faltenreich.skeletonlayout.Skeleton
+import com.faltenreich.skeletonlayout.SkeletonLayout
+import com.faltenreich.skeletonlayout.applySkeleton
 import kotlinx.android.synthetic.main.fragment_feed.*
+import kotlinx.android.synthetic.main.fragment_feed.view.*
 
-open class FeedFragment : BaseFragment(), ClickViewAllListener {
+class FeedFragment : BaseFragment(R.layout.fragment_feed), ClickViewAllListener {
+
+    override lateinit var skeleton: Skeleton
 
     lateinit var feedViewModel: FeedViewModel
     private val feedList = ArrayList<FeedItem>()
     private val feedAdapter= FeedAdapter(feedList,this)
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_feed, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         feedViewModel= ViewModelProvider(this)[FeedViewModel::class.java]
+
         (activity as MainPageActivity).onFeedFragmentViewCreated()
         feedRecyclerView.adapter=feedAdapter
+        skeleton=feedRecyclerView.applySkeleton(R.layout.feed_list_view,10).apply { showSkeleton() }
 
     }
 
@@ -48,7 +49,9 @@ open class FeedFragment : BaseFragment(), ClickViewAllListener {
         feedViewModel.resultsItem.observe(viewLifecycleOwner){
             feedList.clear()
             feedList.addAll(it)
+            skeleton.showOriginal()
             feedAdapter.notifyDataSetChanged()
+
         }
     }
 
