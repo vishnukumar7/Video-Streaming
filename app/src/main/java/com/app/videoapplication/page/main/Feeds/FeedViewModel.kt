@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.app.videoapplication.Utils.Constants
 import com.app.videoapplication.api.ApiClient
 import com.app.videoapplication.model.FeedItem
 import com.app.videoapplication.model.GenresItem
@@ -19,9 +20,6 @@ class FeedViewModel(application: Application) : AndroidViewModel(application) {
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private val _resultsItem = MutableLiveData<List<FeedItem>>()
     val resultsItem : LiveData<List<FeedItem>> =_resultsItem
-
-    /*private val _carouselItem = MutableLiveData<FeedItem>()
-    val carouselItem : LiveData<FeedItem> =_carouselItem*/
     private val feedList= ArrayList<FeedItem>()
     private var tempDataList = ArrayList<GenresItem>()
     private val selectedList= arrayListOf("Action","Adventure","Fantasy")
@@ -33,7 +31,7 @@ class FeedViewModel(application: Application) : AndroidViewModel(application) {
                 response.body()?.results?.let {
                     feedList.clear()
                     if(it.isNotEmpty()){
-                        feedList.add(FeedItem(title = "Trending day", itemList = it))
+                        feedList.add(FeedItem(title = Constants.TRENDING_DAY, itemList = it))
                     }
                 }
                 _resultsItem.postValue(feedList)
@@ -48,7 +46,7 @@ class FeedViewModel(application: Application) : AndroidViewModel(application) {
             if(response.isSuccessful){
                 response.body()?.results?.let {
                     if(it.isNotEmpty())
-                        feedList.add(FeedItem(title = "Trending Week", itemList = it))
+                        feedList.add(FeedItem(title =Constants.TRENDING_WEEK, itemList = it))
                 }
 
             }
@@ -62,7 +60,7 @@ class FeedViewModel(application: Application) : AndroidViewModel(application) {
             if(response.isSuccessful){
                 response.body()?.results?.let {
                     if(it.isNotEmpty())
-                        feedList.add(FeedItem(title = "Popular on Netflix", itemList = it))
+                        feedList.add(FeedItem(title = Constants.POPULAR, itemList = it))
                 }
                 _resultsItem.postValue(feedList)
                 getTrendingWeek()
@@ -76,7 +74,7 @@ class FeedViewModel(application: Application) : AndroidViewModel(application) {
             if(response.isSuccessful){
                 response.body()?.results?.let {
                     if(it.isNotEmpty())
-                    feedList.add(FeedItem(title = "Top Rated on Netflix", itemList = it))
+                    feedList.add(FeedItem(title = Constants.TOP_RATED, itemList = it))
                 }
                 _resultsItem.postValue(feedList)
             }
@@ -91,7 +89,7 @@ class FeedViewModel(application: Application) : AndroidViewModel(application) {
             if(response.isSuccessful){
                 response.body()?.results?.let {
                     if(it.isNotEmpty())
-                    feedList.add(FeedItem(title = "Latest on Netflix", itemList = it))
+                    feedList.add(FeedItem(title = Constants.LATEST, itemList = it))
                 }
                 _resultsItem.postValue(feedList)
             }
@@ -105,7 +103,7 @@ class FeedViewModel(application: Application) : AndroidViewModel(application) {
             if(response.isSuccessful){
                 response.body()?.results?.let {
                     if(it.isNotEmpty())
-                        feedList.add(FeedItem(title = "Popular on TV", itemList = it))
+                        feedList.add(FeedItem(title = Constants.POPULAR_TV, itemList = it))
                 }
                 _resultsItem.postValue(feedList)
             }

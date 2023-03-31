@@ -7,16 +7,16 @@
 
     <application
         android:allowBackup="false"
-        android:usesCleartextTraffic="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:hardwareAccelerated="false"
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VideoApplication"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
             android:name=".page.MainPageActivity"
@@ -31,6 +31,16 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity
+            android:name=".page.BaseActivity"
+            android:theme="@style/Theme.VideoApplication"
+            android:exported="false" />
+        <activity
+            android:name=".page.main.listPage.ListActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.VideoApplication"
+            tools:ignore="LockedOrientationActivity" />
     </application>
 
 </manifest>

@@ -39,6 +39,7 @@ android {
     }*/
     applicationVariants.all { variant ->
         variant.outputs.all{output->
+           // output.outputFile=file("/VideoApplication")
             output.outputFileName="VideoStreaming.apk"
         }
         variant.buildConfigField 'String', 'BASE_URL_MOVIE', '"https://api.themoviedb.org/3/movie/550?api_key=f9071109db33abdd98d52e8a1cc73b3e/"'

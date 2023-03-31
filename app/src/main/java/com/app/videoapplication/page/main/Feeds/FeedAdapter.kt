@@ -8,17 +8,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.app.videoapplication.AppUtils.getImageUrl
 import com.app.videoapplication.AppUtils.optString
+import com.app.videoapplication.ClickViewAllListener
 import com.app.videoapplication.ImageSize
 import com.app.videoapplication.R
 import com.app.videoapplication.carouel.ImageListener
 import com.app.videoapplication.model.FeedItem
 import com.app.videoapplication.model.ResultsItem
-import com.app.videoapplication.model.TvShowResultsItem
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.feed_list_view.view.*
 import kotlinx.android.synthetic.main.home_header_view.view.*
 
-class FeedAdapter(val feedItemList: ArrayList<FeedItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class FeedAdapter(val feedItemList: ArrayList<FeedItem>,var clickViewAllListener: ClickViewAllListener?=null) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType){
@@ -38,7 +38,7 @@ class FeedAdapter(val feedItemList: ArrayList<FeedItem>) : RecyclerView.Adapter<
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder){
             is FeedViewHolder -> {
-                holder.bind(holder.itemView,feedItemList[position])
+                holder.bind(holder.itemView,feedItemList[position],position,clickViewAllListener)
             }
             is CarouselViewHolder -> {
                 holder.bind(holder.itemView,feedItemList[position].itemList as ArrayList<ResultsItem>)
@@ -54,18 +54,14 @@ class FeedAdapter(val feedItemList: ArrayList<FeedItem>) : RecyclerView.Adapter<
 
 class FeedViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
 
-    private val imageAdapter=FeedImageAdapter()
-    private val imageTvShowAdapter = FeedImageTvShowAdapter()
-    fun bind(itemView: View,feedItem : FeedItem){
+    private val imageAdapter=FeedImageAdapter(itemView.context)
+    fun bind(itemView: View,feedItem : FeedItem,position: Int,clickViewAllListener: ClickViewAllListener?){
         itemView.feedTitle.text=feedItem.title
+        itemView.feedTitle.setOnClickListener { clickViewAllListener?.viewAll(position,feedItem.title) }
         if(feedItem.itemList.isNotEmpty() && feedItem.itemList[0] is ResultsItem){
-            imageAdapter.resultItemList.clear()
-            imageAdapter.resultItemList.addAll(feedItem.itemList as ArrayList<ResultsItem>)
+            imageAdapter.listList.clear()
+            imageAdapter.listList.addAll(feedItem.itemList as ArrayList<ResultsItem>)
             itemView.feedListRecyclerView.adapter=imageAdapter
-        }else if(feedItem.itemList.isNotEmpty() && feedItem.itemList[0] is TvShowResultsItem){
-            imageTvShowAdapter.resultItemList.clear()
-            imageTvShowAdapter.resultItemList.addAll(feedItem.itemList as ArrayList<TvShowResultsItem>)
-            itemView.feedListRecyclerView.adapter=imageTvShowAdapter
         }
 
 

@@ -33,4 +33,7 @@ interface APIInterface {
     @GET("tv/popular")
     suspend fun getTvPopular() : Response<TvShowResponse>
 
+    @GET("movie/upcoming")
+    suspend fun getUpComing(@Query("page") page: Int) : Response<ComingSoonResponse>
+
 }
