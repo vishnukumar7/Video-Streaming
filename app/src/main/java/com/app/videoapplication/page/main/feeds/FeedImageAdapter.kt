@@ -1,21 +1,16 @@
-package com.app.videoapplication.page.main.Feeds
+package com.app.videoapplication.page.main.feeds
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.app.videoapplication.AppUtils.getImageUrl
-import com.app.videoapplication.AppUtils.optString
-import com.app.videoapplication.BuildConfig
-import com.app.videoapplication.ImageSize
+import com.app.videoapplication.utils.AppUtils.getImageUrl
+import com.app.videoapplication.utils.AppUtils.optString
 import com.app.videoapplication.NextPageListener
 import com.app.videoapplication.R
-import com.app.videoapplication.carouel.ImageListener
 import com.app.videoapplication.model.ResultsItem
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.home_header_view.view.*
 import kotlinx.android.synthetic.main.list_feed.view.*
 
 const val SOME_ITEM=0

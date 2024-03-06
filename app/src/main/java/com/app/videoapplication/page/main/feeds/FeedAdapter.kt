@@ -1,15 +1,14 @@
-package com.app.videoapplication.page.main.Feeds
+package com.app.videoapplication.page.main.feeds
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.app.videoapplication.AppUtils.getImageUrl
-import com.app.videoapplication.AppUtils.optString
+import com.app.videoapplication.utils.AppUtils.getImageUrl
+import com.app.videoapplication.utils.AppUtils.optString
 import com.app.videoapplication.ClickViewAllListener
-import com.app.videoapplication.ImageSize
+import com.app.videoapplication.utils.ImageSize
 import com.app.videoapplication.R
 import com.app.videoapplication.carouel.ImageListener
 import com.app.videoapplication.model.FeedItem
@@ -57,14 +56,13 @@ class FeedViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
     private val imageAdapter=FeedImageAdapter(itemView.context)
     fun bind(itemView: View,feedItem : FeedItem,position: Int,clickViewAllListener: ClickViewAllListener?){
         itemView.feedTitle.text=feedItem.title
-        itemView.feedTitle.setOnClickListener { clickViewAllListener?.viewAll(position,feedItem.title) }
+        itemView.viewAll.visibility = if(feedItem.viewAll) View.VISIBLE else View.GONE
+        itemView.viewAll.setOnClickListener { clickViewAllListener?.viewAll(position,feedItem.title) }
         if(feedItem.itemList.isNotEmpty() && feedItem.itemList[0] is ResultsItem){
             imageAdapter.listList.clear()
             imageAdapter.listList.addAll(feedItem.itemList as ArrayList<ResultsItem>)
             itemView.feedListRecyclerView.adapter=imageAdapter
         }
-
-
     }
 }
 
@@ -77,7 +75,7 @@ class CarouselViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         itemView.carouselView.pageCount=carouselList.size
         itemView.carouselView.setImageListener(imageListener)
     }
-    val imageListener = object : ImageListener {
+    private val imageListener = object : ImageListener {
         override fun setImageForPosition(position: Int, imageView: ImageView?) {
             imageView?.let {
                 val url = carouselList[position].backdropPath.optString().ifEmpty { carouselList[position].posterPath }

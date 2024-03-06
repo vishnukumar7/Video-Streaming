@@ -18,7 +18,6 @@ import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener
 import com.app.videoapplication.R
-import com.app.videoapplication.page.main.Feeds.FeedFragment
 import java.util.*
 
 

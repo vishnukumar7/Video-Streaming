@@ -77,5 +77,7 @@ data class ResultsItem(
 
 data class FeedItem(
 	var title: String,
-	var itemList : List<Any>
+	var list : Int= 0,
+	var itemList : List<Any>,
+	var viewAll : Boolean = true
 )

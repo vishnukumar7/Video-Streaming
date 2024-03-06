@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import com.app.videoapplication.R
+import com.app.videoapplication.page.main.MainApplication
 import com.app.videoapplication.page.main.comingSoon.ComingSoonFragment
 import com.app.videoapplication.page.main.download.DownloadFragment
-import com.app.videoapplication.page.main.Feeds.FeedFragment
+import com.app.videoapplication.page.main.feeds.FeedFragment
+import com.app.videoapplication.utils.AppRepository
 import com.google.android.material.navigation.NavigationBarView
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -18,6 +20,8 @@ class MainPageActivity : BaseActivity(), NavigationBarView.OnItemSelectedListene
     private var activeFragment : Fragment = feedFragment
 
     private val fragmentFirstDisplay = mutableListOf(false, false, false)
+
+    val appRepository by lazy { (application as MainApplication).appRepository }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

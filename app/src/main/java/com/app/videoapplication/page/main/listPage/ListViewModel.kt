@@ -4,19 +4,20 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.app.videoapplication.Utils.Constants
+import androidx.lifecycle.ViewModel
+import com.app.videoapplication.utils.Constants
 import com.app.videoapplication.api.ApiClient
-import com.app.videoapplication.model.FeedItem
 import com.app.videoapplication.model.ResultsItem
+import com.app.videoapplication.utils.AppRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
-class ListViewModel(application: Application) : AndroidViewModel(application) {
+class ListViewModel(private val repository: AppRepository) : ViewModel() {
 
-    private val viewModelJob = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+    private val uiScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
     private val _resultsItem = MutableLiveData<List<ResultsItem>>()
     val resultsItem : LiveData<List<ResultsItem>> =_resultsItem
     private var totalPages=0
@@ -41,33 +42,21 @@ class ListViewModel(application: Application) : AndroidViewModel(application) {
 
     private fun getTopRated(){
         uiScope.launch {
-            val response = ApiClient.callClient.fetchTopRatedMovies(currentPage)
-            if(response.isSuccessful){
-                response.body()?.results?.let {
-                    if(it.isNotEmpty()) {
-                        _resultsItem.postValue(it)
-                        reachLevel = true
-                    }
-                }
+            repository.fetchTopRatedMovies(currentPage)?.let {
+                _resultsItem.postValue(it)
+                reachLevel = true
             }
         }
     }
 
     private fun getPopularMovies(){
         uiScope.launch {
-            val response = ApiClient.callClient.fetchPopularMovies(currentPage)
-            if(response.isSuccessful){
-                response.body()?.results?.let {
-                    if(it.isNotEmpty()) {
-                        _resultsItem.postValue(it)
-                        reachLevel = true
-                    }
-                }
+            repository.fetchPopularMovies(currentPage)?.let {
+                _resultsItem.postValue(it)
+                reachLevel = true
             }
         }
     }
-
-
 
     fun nextPage(){
         if(reachLevel){

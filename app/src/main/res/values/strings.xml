@@ -3,4 +3,8 @@
     <string name="home_tab_label">Home</string>
     <string name="coming_soon_tab_label">Coming Soon</string>
     <string name="downloads_tab_label">Downloads</string>
+    <string name="view_all">View All</string>
+    <string name="home">Home</string>
+    <string name="movie">Movie</string>
+    <string name="tv">Tv</string>
 </resources>

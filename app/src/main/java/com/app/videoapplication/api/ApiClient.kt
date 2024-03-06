@@ -23,17 +23,6 @@ object ApiClient {
     }
 
     private val moshi: Moshi = Moshi.Builder()
-        /*.add(
-            PolymorphicJsonAdapterFactory.of(Media::class.java, "media_type")
-                .withSubtype(Media.Movie::class.java, "movie")
-                .withSubtype(Media.Tv::class.java, "tv")
-                .withSubtype(Media.Person::class.java, "person")
-        )
-        .add(
-            PolymorphicJsonAdapterFactory.of(FeedItem::class.java, "type")
-                .withSubtype(FeedItem.Header::class.java, "header")
-                .withSubtype(FeedItem.HorizontalList::class.java, "horizontal_list")
-        )*/
         .add(KotlinJsonAdapterFactory())
         .build()
 
