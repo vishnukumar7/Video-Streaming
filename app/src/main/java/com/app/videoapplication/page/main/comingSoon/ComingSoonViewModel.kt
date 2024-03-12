@@ -1,16 +1,10 @@
 package com.app.videoapplication.page.main.comingSoon
 
-import android.app.Application
-import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.app.videoapplication.api.ApiClient
 import com.app.videoapplication.model.ResultsItem
 import com.app.videoapplication.utils.AppRepository
-import com.app.videoapplication.utils.DebugUtilis
-import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -36,8 +30,14 @@ class ComingSoonViewModel(private val appRepository: AppRepository) : ViewModel(
     private fun getComingSoon(){
         uiScope.launch {
             appRepository.getUpComing(currentPage)?.let {
+                it.forEach {resultsItem->
+                    if(resultsItem.genreIds.isNotEmpty()){
+                        resultsItem.genreIds.forEach {
+                            //resultsItem.genreIdString.add(appRepository.getNameFromId(it))
+                        }
+                    }
+                }
                 _resultsItem.postValue(it)
-
                 reachLevel = true
             }
         }

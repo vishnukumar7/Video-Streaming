@@ -1,9 +1,8 @@
 package com.app.videoapplication.page.main.download
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.app.videoapplication.R
 import com.app.videoapplication.page.main.BaseFragment
 import com.faltenreich.skeletonlayout.Skeleton

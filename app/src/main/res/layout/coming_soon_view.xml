@@ -13,6 +13,80 @@
         android:scaleType="centerCrop"
         android:background="@drawable/poster_bg" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:id="@+id/name"
+        app:layout_constraintStart_toStartOf="parent"
+        android:padding="10dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_color"
+        app:layout_constraintTop_toBottomOf="@id/comingImageView"
+        android:layout_height="wrap_content"/>
 
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:id="@+id/rating"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="10dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_color"
+        app:layout_constraintTop_toBottomOf="@id/comingImageView"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:id="@+id/genre"
+        app:layout_constraintStart_toStartOf="parent"
+        android:padding="10dp"
+        android:textSize="14sp"
+        android:textColor="@color/text_color"
+        app:layout_constraintTop_toBottomOf="@id/name"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:id="@+id/releaseDateText"
+        app:layout_constraintStart_toStartOf="parent"
+        android:padding="10dp"
+        android:text="@string/release_date"
+        android:textSize="14sp"
+        android:textColor="@color/text_color"
+        app:layout_constraintTop_toBottomOf="@id/genre"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:id="@+id/releaseDate"
+        app:layout_constraintStart_toEndOf="@id/releaseDateText"
+        android:padding="10dp"
+        android:textSize="14sp"
+        android:textColor="@color/text_color"
+        app:layout_constraintTop_toBottomOf="@id/genre"
+        android:layout_height="wrap_content"/>
+
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:id="@+id/overview"
+        app:layout_constraintStart_toStartOf="parent"
+        android:padding="10dp"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/releaseDate"
+        android:layout_height="wrap_content"/>
+
+
+
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/text_color"
+        app:layout_constraintTop_toBottomOf="@id/overview"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

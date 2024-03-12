@@ -2,6 +2,7 @@ package com.app.videoapplication.page.main.comingSoon
 
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.app.videoapplication.NextPageListener
 import com.app.videoapplication.R
 import com.app.videoapplication.model.ResultsItem
@@ -18,12 +19,13 @@ class ComingSoonFragment : BaseFragment(R.layout.fragment_coming_soon), NextPage
     private val comingSoonViewModel: ComingSoonViewModel by viewModels {
         AppViewModelFactory((activity as MainPageActivity).appRepository)
     }
-    var listItem = ArrayList<ResultsItem>()
-    var adapter = ComingSoonAdapter(listItem,this)
-    var lastPosition=0
+    private var listItem = ArrayList<ResultsItem>()
+    private var adapter = ComingSoonAdapter(listItem,this)
+    private var lastPosition=0
     override fun onViewStarted() {
         super.onViewStarted()
         comingSoonViewModel.resultsItem.observe(viewLifecycleOwner) {
+            adapter.activity=requireActivity() as MainPageActivity
             if(adapter.listItem.size==0){
                 adapter.listItem.addAll(it)
                 adapter.notifyDataSetChanged()

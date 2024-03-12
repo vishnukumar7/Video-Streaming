@@ -8,9 +8,8 @@ import com.app.videoapplication.page.main.MainApplication
 import com.app.videoapplication.page.main.comingSoon.ComingSoonFragment
 import com.app.videoapplication.page.main.download.DownloadFragment
 import com.app.videoapplication.page.main.feeds.FeedFragment
-import com.app.videoapplication.utils.AppRepository
 import com.google.android.material.navigation.NavigationBarView
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.bottomNav
 
 class MainPageActivity : BaseActivity(), NavigationBarView.OnItemSelectedListener {
 

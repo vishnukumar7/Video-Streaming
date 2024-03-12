@@ -2,10 +2,6 @@ package com.app.videoapplication.utils
 
 object Constants {
 
-    const val POPULAR="Popular on Netflix"
-    const val TOP_RATED="Top Rated on Netflix"
-    const val LATEST="Latest on Netflix"
-
     //Tv Series
     const val TOP_RATED_TV="top_rated_tv"
     const val POPULAR_TV="popular_tv"
@@ -37,6 +33,7 @@ object Constants {
     //movie header
     const val HOME_HEADER_POPULAR_MOVIE="Popular Movies"
     const val HOME_HEADER_TOP_RATED_MOVIE="Top Rated Movies"
+    const val HOME_HEADER_LATEST_MOVIE="Latest Movies"
     const val HEADER_NOW_PLAYING_MOVIE="Now Playing"
     const val HEADER_UP_COMING_MOVIE="Up Coming"
     const val HEADER_TRENDING_BY_DAY_MOVIE="Trending By Day"
@@ -44,4 +41,6 @@ object Constants {
     const val HEADER_HOME="Home"
 
     const val TAG_VIEW_ALL="view_all"
+
+    const val MOVIE_ID="movie_id"
 }

@@ -35,8 +35,9 @@ class ListViewModel(private val repository: AppRepository) : ViewModel() {
 
     private fun loadData(){
         when(title){
-            Constants.POPULAR -> getPopularMovies()
-            Constants.TOP_RATED -> getTopRated()
+            Constants.HOME_HEADER_TOP_RATED_MOVIE -> getTopRated()
+            Constants.HOME_HEADER_LATEST_MOVIE -> getLatestMovies()
+            Constants.HOME_HEADER_POPULAR_MOVIE -> getPopularMovies()
         }
     }
 
@@ -45,6 +46,15 @@ class ListViewModel(private val repository: AppRepository) : ViewModel() {
             repository.fetchTopRatedMovies(currentPage)?.let {
                 _resultsItem.postValue(it)
                 reachLevel = true
+            }
+        }
+    }
+
+    private fun getLatestMovies(){
+        uiScope.launch {
+            repository.fetchLatestMovies(currentPage)?.let {
+                _resultsItem.postValue(it)
+                reachLevel=true
             }
         }
     }

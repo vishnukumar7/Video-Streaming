@@ -1,6 +1,7 @@
 package com.app.videoapplication.api
 
 import com.app.videoapplication.model.*
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -15,19 +16,19 @@ interface APIInterface {
     @GET("tv/popular")
     suspend fun getTvPopular() : Response<TvShowResponse>
 
-    @GET("3/tv/on_the_air")
+    @GET("tv/on_the_air")
     suspend fun getOnTheAirTv(@Query("language") language : String="en-US",@Query("page")page : Int=1) : Response<TvShowResponse>
 
-    @GET("3/tv/airing_today")
+    @GET("tv/airing_today")
     suspend fun getAiringTodayTv(@Query("language") language : String="en-US",@Query("page")page : Int =1) : Response<TvShowResponse>
 
-    @GET("3/tv/top_rated")
+    @GET("tv/top_rated")
     suspend fun getTopRatedTv(@Query("language") language : String="en-US",@Query("page")page : Int =1) : Response<TvShowResponse>
 
-    @GET("3/trending/tv/day")
+    @GET("trending/tv/day")
     suspend fun getTrendingTvByDay(@Query("language") language : String="en-US") : Response<TvShowResponse>
 
-    @GET("3/trending/tv/week")
+    @GET("trending/tv/week")
     suspend fun getTrendingTvByWeek(@Query("language") language : String="en-US") : Response<TvShowResponse>
 
     //Movies API
@@ -40,7 +41,7 @@ interface APIInterface {
     @GET("movie/top_rated")
     suspend fun fetchTopRatedMovies(@Query("page") page: Int=1) : Response<TrendingResponse>
 
-    @GET("3/movie/now_playing")
+    @GET("movie/now_playing")
     suspend fun getNowPlayingMovie(@Query("language") language : String="en-US",@Query("page")page : Int =1) : Response<TrendingResponse>
     @GET("movie/{movie_id}/lists")
     suspend fun getMovie(@Path("movie_id") id : Int) : Response<MovieViewResponse>
@@ -48,14 +49,20 @@ interface APIInterface {
     @GET("movie/upcoming")
     suspend fun getUpComing(@Query("page") page: Int) : Response<ComingSoonResponse>
 
-    @GET("3/trending/movie/day")
+    @GET("trending/movie/day")
     suspend fun getTrendingMovieByDay(@Query("language") language : String="en-US") : Response<MovieViewResponse>
 
-    @GET("3/trending/movie/week")
+    @GET("trending/movie/week")
     suspend fun getTrendingMovieByWeek(@Query("language") language : String="en-US") : Response<MovieViewResponse>
 
     @GET("trending/{media_type}/{time_window}")
     suspend fun getTrending(@Path("media_type") mediaType: String,@Path("time_window")timeWindow: String) : Response<TrendingResponse>
+
+    @GET("movie/{movie_id}")
+    suspend fun getMovieDetail(@Path("movie_id")movieId : String,@Query("language") language : String="en-US") : Response<MovieDetailResponse>
+
+    @GET("movie/{movie_id}")
+    suspend fun getMovieDetailCall(@Path("movie_id")movieId : String,@Query("language") language : String="en-US") : Call<MovieDetailResponse>
 
     @GET("genre/movie/list")
     suspend fun getMovieList() : Response<MovieListGenreResponse>

@@ -21,10 +21,16 @@ class FeedViewModel(private val repository: AppRepository) : ViewModel() {
         CoroutineExceptionHandler { coroutineContext, throwable ->
             Log.e("FeedViewModel", "coroutineExceptionHandler: ${throwable.message} ")
             if(throwable.message?.contains("reset")==true){
-                if(type=="All"){
-                    getFeeds()
-                }else if(type=="Movie"){
-                    getMovieFeed()
+                when (type) {
+                    "All" -> {
+                        getFeeds()
+                    }
+                    "Movie" -> {
+                        getMovieFeed()
+                    }
+                    "Tv" -> {
+                        getTvFeed()
+                    }
                 }
             }
 
@@ -52,7 +58,7 @@ class FeedViewModel(private val repository: AppRepository) : ViewModel() {
                 _resultsItem.postValue(feedList)
             }
             repository.fetchPopularMovies()?.let {
-                feedList.add(FeedItem(title = Constants.POPULAR, itemList = it))
+                feedList.add(FeedItem(title = Constants.HOME_HEADER_POPULAR_MOVIE, itemList = it))
                 _resultsItem.postValue(feedList)
             }
 
@@ -68,7 +74,7 @@ class FeedViewModel(private val repository: AppRepository) : ViewModel() {
             repository.fetchTopRatedMovies()?.let {
                 feedList.add(
                     FeedItem(
-                        title = Constants.HOME_HEADER_POPULAR_MOVIE,
+                        title = Constants.HOME_HEADER_TOP_RATED_MOVIE,
                         itemList = it,
                         list = 0
                     )
@@ -76,11 +82,11 @@ class FeedViewModel(private val repository: AppRepository) : ViewModel() {
                 _resultsItem.postValue(feedList)
             }
             repository.fetchLatestMovies()?.let {
-                feedList.add(FeedItem(title = Constants.LATEST, itemList = it))
+                feedList.add(FeedItem(title = Constants.HOME_HEADER_LATEST_MOVIE, itemList = it))
                 _resultsItem.postValue(feedList)
             }
             repository.getTvPopular()?.let {
-                feedList.add(FeedItem(title = Constants.HOME_HEADER_POPULAR_TV, itemList = it))
+                feedList.add(FeedItem(title = Constants.HOME_HEADER_POPULAR_TV, itemList = it, viewAll = false))
                 _resultsItem.postValue(feedList)
             }
         }
@@ -89,12 +95,15 @@ class FeedViewModel(private val repository: AppRepository) : ViewModel() {
     fun getMovieFeed() {
         feedList.clear()
         uiSupervisorScope.launch {
+            repository.getNowPlayingMovie()?.let {
+                feedList.add(FeedItem(title = Constants.HEADER_NOW_PLAYING_MOVIE, itemList = it))
+                _resultsItem.postValue(feedList)
+            }
             repository.fetchPopularMovies()?.let {
                 feedList.add(
                     FeedItem(
                         title = Constants.HOME_HEADER_POPULAR_MOVIE,
-                        itemList = it,
-                        list = 0
+                        itemList = it
                     )
                 )
                 _resultsItem.postValue(feedList)
@@ -102,9 +111,8 @@ class FeedViewModel(private val repository: AppRepository) : ViewModel() {
             repository.fetchTopRatedMovies()?.let {
                 feedList.add(
                     FeedItem(
-                        title = Constants.HOME_HEADER_POPULAR_MOVIE,
-                        itemList = it,
-                        list = 0
+                        title = Constants.HOME_HEADER_TOP_RATED_MOVIE,
+                        itemList = it
                     )
                 )
                 _resultsItem.postValue(feedList)
@@ -114,7 +122,7 @@ class FeedViewModel(private val repository: AppRepository) : ViewModel() {
                     FeedItem(
                         title = Constants.HEADER_TRENDING_BY_DAY_MOVIE,
                         itemList = it,
-                        list = 0, viewAll = false
+                        viewAll = false
                     )
                 )
                 _resultsItem.postValue(feedList)
@@ -124,22 +132,48 @@ class FeedViewModel(private val repository: AppRepository) : ViewModel() {
                     FeedItem(
                         title = Constants.HEADER_TRENDING_BY_WEEK_MOVIE,
                         itemList = it,
-                        list = 0,
                         viewAll = false
                     )
                 )
                 _resultsItem.postValue(feedList)
             }
-            repository.getUpComing()?.let {
-                feedList.add(
-                    FeedItem(
-                        title = Constants.HEADER_UP_COMING_MOVIE,
-                        itemList = it,
-                        list = 0
-                    )
-                )
+        }
+    }
+
+    fun getTvFeed(){
+        feedList.clear()
+        uiSupervisorScope.launch {
+            repository.getAiringTodayTv()?.let {
+                feedList.add(FeedItem(title = Constants.HEADER_AIRING_TODAY_TV, itemList = it))
                 _resultsItem.postValue(feedList)
             }
+
+            repository.getOnTheAirTv()?.let {
+                feedList.add(FeedItem(title = Constants.HEADER_ON_THE_AIR_TV, itemList = it))
+                _resultsItem.postValue(feedList)
+            }
+
+            repository.getTvPopular()?.let {
+                feedList.add(FeedItem(title = Constants.HOME_HEADER_POPULAR_TV, itemList = it))
+                _resultsItem.postValue(feedList)
+            }
+
+            repository.getTopRatedTv()?.let {
+                feedList.add(FeedItem(title = Constants.HOME_HEADER_TOP_RATED_TV, itemList = it))
+                _resultsItem.postValue(feedList)
+            }
+
+            repository.getTrendingTvByDay()?.let {
+                feedList.add(FeedItem(title = Constants.HEADER_TRENDING_BY_DAY_TV, itemList = it, viewAll = false))
+                _resultsItem.postValue(feedList)
+            }
+
+            repository.getTrendingTvByWeek()?.let {
+                feedList.add(FeedItem(title = Constants.HEADER_TRENDING_BY_WEEK_TV, itemList = it, viewAll = false))
+                _resultsItem.postValue(feedList)
+            }
+
+
         }
     }
 

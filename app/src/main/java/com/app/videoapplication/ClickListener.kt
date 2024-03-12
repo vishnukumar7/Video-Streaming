@@ -6,8 +6,10 @@ interface NextPageListener {
     fun onNextPageCall(position: Int)
 }
 
-interface ClickViewAllListener{
+interface ClickHandlerListener{
     fun viewAll(position: Int,name: String)
+
+    fun detailPage(movieId : String)
 }
 
 interface ConfigurationListener {
